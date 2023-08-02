@@ -1,6 +1,7 @@
 package com.example.vaccination_project.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,16 @@ public class vaccination_projectService {
         return repo.findAll();
     }
 
+    public void Delete(Integer id) {
+        repo.deleteById(id);
+    }
 
+    public User update(Integer id) {
+        Optional<User> table = repo.findById(id);
+        if (table.isPresent()) {
+            return table.get();
+        } else {
+            return null;
+        }
+    }
 }
