@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.vaccination_project.Model.User;
@@ -37,4 +38,30 @@ public class vaccination_projectController {
         return "redirect:/"; // file name
     }
 
+    //Delete
+    @GetMapping("/delete/{id}")
+    public String dataDel(@PathVariable Integer id, Model model) {
+        demo.Delete(id);
+       List<User> us = demo.show();
+       model.addAttribute("data", us); 
+       return "redirect:/";
+    }
+
+    //Edit
+    @PostMapping("/update")
+    public String update(@ModelAttribute User user, Model model) {
+        demo.Add(user);
+        List<User> us = demo.show();
+        model.addAttribute("data", us);
+        return "redirect:/";
+    }
+
+    
+    @GetMapping("/update/{id}")
+    public String editData(@PathVariable Integer id, Model model) {
+        User us = demo.update(id);
+        model.addAttribute("updatedata", us);
+        demo.update(id);
+        return "update";
+    }
 }
